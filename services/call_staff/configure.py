@@ -8,4 +8,3 @@ def setup(updater):
     dispatcher.add_handler(MessageHandler(Filters.regex("Позвать сотрудника магазина"), select_staff))
     dispatcher.add_handler(MessageHandler(Filters.regex("Позвать администратора"), call_admin))
     dispatcher.add_handler(MessageHandler(Filters.regex("Позвать кассира"), call_cashier))
-
