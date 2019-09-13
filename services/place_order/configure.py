@@ -1,7 +1,7 @@
 from services.initial.functions import *
-from telegram.ext import RegexHandler
+from telegram.ext import MessageHandler, Filters
 
 
 def setup(updater):
     dispatcher = updater.dispatcher
-    dispatcher.add_handler(RegexHandler("Заказать отсутсвующую продукцию", menu))
+    dispatcher.add_handler(MessageHandler(Filters.regex("Заказать отсутсвующую продукцию"), menu))
