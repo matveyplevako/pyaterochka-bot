@@ -6,15 +6,10 @@ from services.place_order.configure import setup as setup_place_order
 from services.wrong_receipt.configure import setup as setup_wrong_receipt
 import os
 
-import logging
-
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s:%(lineno)d'
-                           ' - %(message)s', handlers=[logging.StreamHandler()], level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 def main():
     TOKEN = os.environ['BOT_TOKEN']
-    updater = Updater(token=TOKEN)
+    updater = Updater(TOKEN, use_context=True)
     setup_initial(updater)
     setup_call_staff(updater)
     setup_feedback(updater)
