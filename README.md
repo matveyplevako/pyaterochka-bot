@@ -1,2 +1,1 @@
 # pyaterochka-bot
-# In development 
