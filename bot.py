@@ -10,11 +10,11 @@ import os
 def main():
     TOKEN = os.environ['BOT_TOKEN']
     updater = Updater(TOKEN, use_context=True)
-    setup_initial(updater)
     setup_call_staff(updater)
     setup_feedback(updater)
     setup_place_order(updater)
     setup_wrong_receipt(updater)
+    setup_initial(updater)
     updater.start_polling(poll_interval=1)
 
 

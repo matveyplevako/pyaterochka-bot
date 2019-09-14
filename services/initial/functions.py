@@ -18,6 +18,7 @@ def menu(update, context):
 
 def start(update, context):
     bot = context.bot
+
     keyboard = [
         [KeyboardButton("Меню")]
     ]

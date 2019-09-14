@@ -20,30 +20,17 @@ def select_staff(update, context):
 def call_admin(update, context):
     bot = context.bot
 
-    keyboard = [
-        [KeyboardButton("Меню")],
-    ]
-    reply_markup = ReplyKeyboardMarkup(keyboard,
-                                       one_time_keyboard=False,
-                                       resize_keyboard=True)
-
     user = update.message.from_user
     first_name = user.first_name if user.first_name is not None else ""
     last_name = user.last_name if user.last_name is not None else ""
     username = "@" + user.username if user.username is not None else ""
 
     bot.send_message(os.environ["WORKERS_CHANNEL"], f"""Вызов администратора\nот {first_name} {last_name} {username}""")
-    bot.send_message(update.message.chat_id, "Запрос отправлен", reply_markup=reply_markup)
+    bot.send_message(update.message.chat_id, "Запрос отправлен")
+    menu(update, context)
 
 def call_cashier(update, context):
     bot = context.bot
-
-    keyboard = [
-        [KeyboardButton("Меню")],
-    ]
-    reply_markup = ReplyKeyboardMarkup(keyboard,
-                                       one_time_keyboard=False,
-                                       resize_keyboard=True)
 
     user = update.message.from_user
     first_name = user.first_name if user.first_name is not None else ""
@@ -51,5 +38,6 @@ def call_cashier(update, context):
     username = "@" + user.username if user.username is not None else ""
 
     bot.send_message(os.environ["WORKERS_CHANNEL"], f"""Вызов кассира\nот {first_name} {last_name} {username}""")
+
 
     bot.send_message(update.message.chat_id, "Запрос отправлен", reply_markup=reply_markup)
