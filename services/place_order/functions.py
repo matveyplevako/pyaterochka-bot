@@ -3,7 +3,7 @@ from services.logger import logger
 from telegram.ext import ConversationHandler
 import os
 
-CHOOSE_PRODUCT = 0
+CHOOSE_PRODUCT_TEXT, CHOOSE_PRODUCT_PHOTO = 0
 
 
 def choose_product(update, context):
@@ -13,6 +13,8 @@ def choose_product(update, context):
     # logger.info(update.message.from_user.username)
 
     keyboard = [
+        [KeyboardButton("Отправить название")],
+        [KeyboardButton("Отправить фото и название")],
         [KeyboardButton("Отменить")],
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard,
@@ -21,10 +23,9 @@ def choose_product(update, context):
 
     bot.send_message(update.message.chat_id, "Напишите название продукта, который вы хотите заказать", reply_markup=reply_markup)
 
-    return CHOOSE_PRODUCT
+    return CHOOSE_PRODUCT_TEXT
 
 def send_product_query(update, context):
-    bot = context.bot
     #logger.info(update.message.from_user.username)
 
     bot = context.bot
