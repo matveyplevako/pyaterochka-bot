@@ -40,5 +40,5 @@ def call_cashier(update, context):
     username = "@" + user.username if user.username is not None else ""
 
     bot.send_message(os.environ["WORKERS_CHANNEL"], f"""Вызов кассира\nот {first_name} {last_name} {username}""")
-
-    bot.send_message(update.message.chat_id, "Запрос отправлен", reply_markup=reply_markup)
+    bot.send_message(update.message.chat_id, "Запрос отправлен")
+    menu(update, context)
