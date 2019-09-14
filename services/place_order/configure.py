@@ -20,7 +20,7 @@ def setup(updater):
         entry_points=[MessageHandler(Filters.regex("Отправить фото и название"), input_photo)],
         states={
             ADD_PHOTO: [MessageHandler(Filters.photo, send_product_photo)],
-            ADD_PHOTO_TEXT: [MessageHandler(Filters.regex("^((?!Отменить).)*$"), send_product_text)],
+            ADD_PHOTO_TEXT: [MessageHandler(Filters.regex("^((?!Отменить).)*$"), send_product_text_photo)],
         },
         fallbacks=[MessageHandler(Filters.regex("Отменить"), cancel)]
     )

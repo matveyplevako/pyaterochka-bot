@@ -62,11 +62,7 @@ def input_photo(update, context):
 def input_product_text(update, context):
     bot = context.bot
     # logger.info(update.message.from_user.username)
-
-
-
-
-
+    return ADD_TEXT
 
 def send_product_text(update, context):
     # logger.info(update.message.from_user.username)
@@ -78,16 +74,19 @@ def send_product_text(update, context):
     last_name = user.last_name if user.last_name is not None else ""
     username = "@" + user.username if user.username is not None else ""
 
-    bot.send_message(os.environ["WORKERS_CHANNEL"], f"""Заказ продуктов\nот {first_name} {last_name} {username}\n""" + \
-                     update.message.text)
     bot.send_message(update.message.chat_id, "Мы приняли ваш заказ")
     menu(update, context)
-    return ConversationHandler.END
 
+    message = f"""Заказ продуктов\nот {first_name} {last_name} {username}\n""" + update.message.text
+
+    bot.send_message(os.environ["WORKERS_CHANNEL"], message)
+
+    return ConversationHandler.END
 
 def send_product_photo(update, context):
     bot = context.bot
     # logger.info(update.message.from_user.username)
+    chat_data = context.chat_data
 
     user = update.message.from_user
     first_name = user.first_name if user.first_name is not None else ""
@@ -95,17 +94,37 @@ def send_product_photo(update, context):
     username = "@" + user.username if user.username is not None else ""
 
     photo_file_id = update.message.photo[len(update.message.photo) - 1].file_id
-    message = f"""Заказ продуктов\nот {first_name} {last_name} {username}\n"""
-
-    bot.send_photo(photo=photo_file_id, chat_id=os.environ["WORKERS_CHANNEL"], caption=message)
 
     bot.send_message(update.message.chat_id, "Отправте название продукта")
-
-    #menu(update, context)
+    chat_data["file_id"] = photo_file_id
 
     return ADD_PHOTO_TEXT
 
 
+def send_product_text_photo(update, context):
+    # logger.info(update.message.from_user.username)
+
+    bot = context.bot
+    chat_data = context.chat_data
+
+    user = update.message.from_user
+    first_name = user.first_name if user.first_name is not None else ""
+    last_name = user.last_name if user.last_name is not None else ""
+    username = "@" + user.username if user.username is not None else ""
+
+    bot.send_message(update.message.chat_id, "Мы приняли ваш заказ")
+    menu(update, context)
+
+    message = f"""Заказ продуктов\nот {first_name} {last_name} {username}\n""" + update.message.text
+
+    bot.send_photo(photo=chat_data["file_id"], chat_id=os.environ["WORKERS_CHANNEL"], caption=message)
+    chat_data = {}
+
+    return ConversationHandler.END
+
+
 def cancel(update, context):
     menu(update, context)
+    chat_data = {}
+
     return ConversationHandler.END
