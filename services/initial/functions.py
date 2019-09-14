@@ -32,3 +32,4 @@ def wrong_input(update, context):
     bot = context.bot
 
     bot.send_message(update.message.chat_id, "Я не искуственный интеллект: не понимаю ваш запрос")
+    menu(update, context)
