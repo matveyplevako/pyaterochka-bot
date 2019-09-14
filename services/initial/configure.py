@@ -7,3 +7,4 @@ def setup(updater):
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(MessageHandler(Filters.regex("Меню"), menu))
+    dispatcher.add_handler(MessageHandler(Filters.text, wrong_input))
