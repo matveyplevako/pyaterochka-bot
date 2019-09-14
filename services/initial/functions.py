@@ -18,5 +18,5 @@ def menu(update, context):
 
 def start(update, context):
     bot = context.bot
-
     bot.send_message(update.message.chat_id, "Привет! Я чат бот пятёрочки города Иннополис")
+    menu(update, context)
