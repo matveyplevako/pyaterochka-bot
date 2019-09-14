@@ -17,6 +17,7 @@ def select_staff(update, context):
 
     bot.send_message(update.message.chat_id, "Кого вы хотите позвать?", reply_markup=reply_markup)
 
+
 def call_admin(update, context):
     bot = context.bot
 
@@ -29,6 +30,7 @@ def call_admin(update, context):
     bot.send_message(update.message.chat_id, "Запрос отправлен")
     menu(update, context)
 
+
 def call_cashier(update, context):
     bot = context.bot
 
@@ -38,6 +40,5 @@ def call_cashier(update, context):
     username = "@" + user.username if user.username is not None else ""
 
     bot.send_message(os.environ["WORKERS_CHANNEL"], f"""Вызов кассира\nот {first_name} {last_name} {username}""")
-
 
     bot.send_message(update.message.chat_id, "Запрос отправлен", reply_markup=reply_markup)

@@ -10,7 +10,7 @@ def setup(updater):
         entry_points=[MessageHandler(Filters.regex("Сообщить о неправильном ценнике"), write_receipt)],
         states={
             ADD_COMMENT_RECEIPT: [MessageHandler(Filters.photo, send_photo, pass_chat_data=True,
-                                         pass_job_queue=True)],
+                                                 pass_job_queue=False)],
         },
         fallbacks=[MessageHandler(Filters.regex("Отменить"), cancel)]
     )

@@ -9,7 +9,8 @@ def setup(updater):
     adding_comment = ConversationHandler(
         entry_points=[MessageHandler(Filters.regex("Оставить отзыв о боте"), write_comment)],
         states={
-            ADD_COMMENT: [MessageHandler(Filters.regex("^((?!Отменить).)*$"), send_comment, pass_chat_data=True, pass_job_queue=True)],
+            ADD_COMMENT: [MessageHandler(Filters.regex("^((?!Отменить).)*$"), send_comment, pass_chat_data=True,
+                                         pass_job_queue=True)],
         },
         fallbacks=[MessageHandler(Filters.regex("Отменить"), cancel)]
     )

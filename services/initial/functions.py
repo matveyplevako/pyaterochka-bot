@@ -27,6 +27,7 @@ def start(update, context):
     bot.send_message(update.message.chat_id, "Привет! Я чат бот пятёрочки города Иннополис",
                      reply_markup=reply_markup)
 
+
 def wrong_input(update, context):
     bot = context.bot
 
