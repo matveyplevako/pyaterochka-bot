@@ -118,13 +118,13 @@ def send_product_text_photo(update, context):
     message = f"""Заказ продуктов\nот {first_name} {last_name} {username}\n""" + update.message.text
 
     bot.send_photo(photo=chat_data["file_id"], chat_id=os.environ["WORKERS_CHANNEL"], caption=message)
-    chat_data = {}
+    context.chat_data = {}
 
     return ConversationHandler.END
 
 
 def cancel(update, context):
     menu(update, context)
-    chat_data = {}
+    context.chat_data = {}
 
     return ConversationHandler.END
