@@ -9,7 +9,8 @@ def select_staff(update, context):
     logger.info(update.message.from_user.username)
     keyboard = [
         [KeyboardButton("Позвать администратора")],
-        [KeyboardButton("Позвать кассира")]
+        [KeyboardButton("Позвать кассира")],
+        [KeyboardButton("Отменить")]
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=False,
@@ -41,4 +42,7 @@ def call_cashier(update, context):
 
     bot.send_message(os.environ["WORKERS_CHANNEL"], f"""Вызов кассира\nот {first_name} {last_name} {username}""")
     bot.send_message(update.message.chat_id, "Запрос отправлен")
+    menu(update, context)
+
+def cancel(update, context):
     menu(update, context)
