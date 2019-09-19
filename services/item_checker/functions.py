@@ -1,15 +1,13 @@
-from telegram import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
+from telegram import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, InlineKeyboardMarkup
 from services.logger import logger
 from services.initial.configure import menu
-from telegram.ext import ConversationHandler, InlineQueryHandler
+from telegram.ext import ConversationHandler
 import os
 
 ADD_TEXT, ADD_PHOTO, ADD_PHOTO_TEXT, SELECT_TYPE = range(4)
 
 
 def choose_product(update, context):
-    bot = context.bot
-
     bot = context.bot
     # logger.info(update.message.from_user.username)
 
@@ -76,20 +74,22 @@ def send_product_text(update, context):
     last_name = user.last_name if user.last_name is not None else ""
     username = "@" + user.username if user.username is not None else ""
 
-    bot.send_message(update.message.chat_id, "Ожидайте ответа от сотрудников")
+    bot.send_message(update.message.chat_id, "Ваш запрос отправлен сотрудникам магазина")
     menu(update, context)
 
-    data_about_user = "order" + " " + str(update.message.chat_id) + "  " + str(update.message.message_id)
+    data_about_user = "info" + " " + str(update.message.chat_id) + " " + str(update.message.message_id)
 
     keyboard = [
-        [InlineKeyboardButton(u"Принять заказ", callback_data=data_about_user + " 1"),
-         InlineKeyboardButton(u"Отклонить",
+        [InlineKeyboardButton(u"Есть в наличии", callback_data=data_about_user + " 1"),
+         InlineKeyboardButton(u"Отсутсвует",
                               callback_data=data_about_user + " 0")],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    message = f"""Заказ продуктов\nот {first_name} {last_name} {username}\n""" + update.message.text
 
-    bot.send_message(os.environ["WORKERS_CHANNEL"], message, reply_markup=reply_markup)
+    message = f"""Запрос иформации о наличии продукта\nот {first_name} {last_name} {username}\n""" + update.message.text
+
+    bot.send_message(os.environ["WORKERS_CHANNEL"], message,
+                     reply_markup=reply_markup)
 
     return ConversationHandler.END
 
@@ -98,6 +98,8 @@ def send_product_photo(update, context):
     bot = context.bot
     # logger.info(update.message.from_user.username)
     chat_data = context.chat_data
+
+    user = update.message.from_user
 
     photo_file_id = update.message.photo[len(update.message.photo) - 1].file_id
 
@@ -121,17 +123,17 @@ def send_product_text_photo(update, context):
     bot.send_message(update.message.chat_id, "Мы приняли ваш заказ")
     menu(update, context)
 
-    picture = bot.send_photo(photo=chat_data["file_id"], chat_id=os.environ["WORKERS_CHANNEL"])
+    picture = bot.send_photo(chat_id=os.environ["WORKERS_CHANNEL"], photo=chat_data["file_id"])
 
-    data_about_user = "order" + " " + str(update.message.chat_id) + "  " + str(update.message.message_id)
+    data_about_user = "info" + " " + str(update.message.chat_id) + "  " + str(update.message.message_id)
 
     keyboard = [
-        [InlineKeyboardButton(u"Принять заказ", callback_data=data_about_user + " 1"),
-         InlineKeyboardButton(u"Отклонить",
+        [InlineKeyboardButton(u"Есть в наличии", callback_data=data_about_user + " 1"),
+         InlineKeyboardButton(u"Отсутсвует",
                               callback_data=data_about_user + " 0")],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    message = f"""Заказ продуктов\nот {first_name} {last_name} {username}\n""" + update.message.text
+    message = f"""Запрос иформации о наличии продукта\nот {first_name} {last_name} {username}\n""" + update.message.text
 
     bot.send_message(os.environ["WORKERS_CHANNEL"], message, reply_to_message_id=picture.message_id,
                      reply_markup=reply_markup)
@@ -165,8 +167,6 @@ def process_selection(update, context):
     )
 
     bot.send_message(chat_id,
-                     ["Извините, к сожалению не можем закзать данный товар",
-                      "Ваш заказ подтвердили, ожидайте поступления в ближайшее время",
-                      ]
+                     ["Данного товара сейчас не в наличии", "Данный товар есть в наличии\nЖдём вас в пятёрочке!"]
                      [selected],
                      reply_to_message_id=message_id)

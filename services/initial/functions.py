@@ -6,6 +6,7 @@ def menu(update, context):
     bot = context.bot
     keyboard = [
         [KeyboardButton("Позвать сотрудника магазина")],
+        [KeyboardButton("Узнать о наличии товара у сотрудников")],
         [KeyboardButton("Заказать отсутсвующую продукцию")],
         [KeyboardButton("Сообщить о неправильном ценнике")],
         [KeyboardButton("Оставить отзыв о боте")]

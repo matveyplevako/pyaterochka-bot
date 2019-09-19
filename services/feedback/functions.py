@@ -27,7 +27,6 @@ def send_comment(update, context):
     bot = context.bot
     # logger.info(update.message.from_user.username)
 
-    bot = context.bot
     user = update.message.from_user
     first_name = user.first_name if user.first_name is not None else ""
     last_name = user.last_name if user.last_name is not None else ""
