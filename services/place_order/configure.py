@@ -1,5 +1,5 @@
 from services.initial.functions import *
-from telegram.ext import MessageHandler, Filters
+from telegram.ext import MessageHandler, Filters, CallbackQueryHandler
 from services.place_order.functions import *
 
 
@@ -19,3 +19,4 @@ def setup(updater):
     )
 
     dispatcher.add_handler(choose_product_conversation)
+    dispatcher.add_handler(CallbackQueryHandler(process_selection, pattern="^order.*"))
