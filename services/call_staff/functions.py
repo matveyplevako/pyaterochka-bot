@@ -1,7 +1,10 @@
 from telegram import ReplyKeyboardMarkup, KeyboardButton
+from telegram.ext import ConversationHandler
 from services.logger import logger
 from services.initial.configure import menu
 import os
+
+CALL_STUFF = 0
 
 
 def select_staff(update, context):
@@ -17,6 +20,7 @@ def select_staff(update, context):
                                        resize_keyboard=True)
 
     bot.send_message(update.message.chat_id, "Кого вы хотите позвать?", reply_markup=reply_markup)
+    return CALL_STUFF
 
 
 def call_admin(update, context):
@@ -30,6 +34,7 @@ def call_admin(update, context):
     bot.send_message(os.environ["WORKERS_CHANNEL"], f"""Вызов администратора\nот {first_name} {last_name} {username}""")
     bot.send_message(update.message.chat_id, "Запрос отправлен")
     menu(update, context)
+    return ConversationHandler.END
 
 
 def call_cashier(update, context):
@@ -43,6 +48,9 @@ def call_cashier(update, context):
     bot.send_message(os.environ["WORKERS_CHANNEL"], f"""Вызов кассира\nот {first_name} {last_name} {username}""")
     bot.send_message(update.message.chat_id, "Запрос отправлен")
     menu(update, context)
+    return ConversationHandler.END
+
 
 def cancel(update, context):
     menu(update, context)
+    return ConversationHandler.END
