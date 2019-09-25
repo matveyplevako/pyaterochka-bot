@@ -5,6 +5,7 @@ from telegram import ReplyKeyboardMarkup, KeyboardButton
 def menu(update, context):
     bot = context.bot
     keyboard = [
+        [KeyboardButton("Показать карту магазина")],
         [KeyboardButton("Позвать сотрудника магазина")],
         [KeyboardButton("Узнать о наличии товара у сотрудников")],
         [KeyboardButton("Заказать отсутсвующую продукцию")],
