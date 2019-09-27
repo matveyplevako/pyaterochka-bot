@@ -35,8 +35,3 @@ def send_comment(update, context):
     bot.send_message(update.message.chat_id, "Спасибо за отзыв! Мы ценим ваше мнение")
     menu(update, context)
     return ConversationHandler.END
-
-
-def cancel(update, context):
-    menu(update, context)
-    return ConversationHandler.END

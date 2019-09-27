@@ -8,28 +8,20 @@ ADD_TEXT, ADD_PHOTO, ADD_PHOTO_TEXT, SELECT_TYPE = range(4)
 
 def choose_product(update, context):
     bot = context.bot
-
-    bot = context.bot
-    # logger.info(update.message.from_user.username)
-
     keyboard = [
-        [KeyboardButton("Отправить название")],
-        [KeyboardButton("Отправить фото и название")],
-        [KeyboardButton("Отменить")],
+        [InlineKeyboardButton("Отправить название", callback_data='send_name_info')],
+        [InlineKeyboardButton("Отправить фото и название", callback_data='send_photo_and_name_info')]
     ]
-    reply_markup = ReplyKeyboardMarkup(keyboard,
-                                       one_time_keyboard=False,
-                                       resize_keyboard=True)
+    reply_markup = InlineKeyboardMarkup(keyboard)
 
     bot.send_message(update.message.chat_id, "Выберите опцию", reply_markup=reply_markup)
     return SELECT_TYPE
 
 
 def input_text(update, context):
-    bot = context.bot
+    query = update.callback_query
 
     bot = context.bot
-    # logger.info(update.message.from_user.username)
 
     keyboard = [
         [KeyboardButton("Отменить")],
@@ -38,14 +30,19 @@ def input_text(update, context):
                                        one_time_keyboard=False,
                                        resize_keyboard=True)
 
-    bot.send_message(update.message.chat_id, "Напишите названию продукта", reply_markup=reply_markup)
+    bot.delete_message(
+        chat_id=query.message.chat_id,
+        message_id=query.message.message_id,
+    )
+
+    bot.send_message(query.message.chat_id, "Напишите названию продукта", reply_markup=reply_markup)
 
     return ADD_TEXT
 
 
 def input_photo(update, context):
     bot = context.bot
-    # logger.info(update.message.from_user.username)
+    query = update.callback_query
 
     keyboard = [
         [KeyboardButton("Отменить")],
@@ -54,19 +51,21 @@ def input_photo(update, context):
                                        one_time_keyboard=False,
                                        resize_keyboard=True)
 
-    bot.send_message(update.message.chat_id, "Отправте фотографию продукта", reply_markup=reply_markup)
+    bot.delete_message(
+        chat_id=query.message.chat_id,
+        message_id=query.message.message_id,
+    )
+
+    bot.send_message(query.message.chat_id, "Отправте фотографию продукта", reply_markup=reply_markup)
 
     return ADD_PHOTO
 
 
 def input_product_text(update, context):
-    bot = context.bot
-    # logger.info(update.message.from_user.username)
     return ADD_TEXT
 
 
 def send_product_text(update, context):
-    # logger.info(update.message.from_user.username)
 
     bot = context.bot
 

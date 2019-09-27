@@ -23,8 +23,7 @@ def main():
     setup_wrong_receipt(updater)
     setup_item_checker(updater)
     setup_initial(updater)
-
-    updater.start_polling(poll_interval=5)
+    updater.start_polling(poll_interval=1)
 
 
 if __name__ == '__main__':

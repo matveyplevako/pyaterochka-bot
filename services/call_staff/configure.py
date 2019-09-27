@@ -1,18 +1,10 @@
-from services.initial.functions import *
 from services.call_staff.functions import *
-from telegram.ext import MessageHandler, Filters
+from telegram.ext import MessageHandler, Filters, CallbackQueryHandler
+import re
 
 
 def setup(updater):
     dispatcher = updater.dispatcher
-
-    choosing_staff = ConversationHandler(
-        entry_points=[MessageHandler(Filters.regex("Позвать сотрудника магазина"), select_staff)],
-        states={
-            CALL_STUFF: [MessageHandler(Filters.regex("Позвать администратора"), call_admin),
-                         MessageHandler(Filters.regex("Позвать кассира"), call_cashier)],
-        },
-        fallbacks=[MessageHandler(Filters.regex("Отменить"), cancel)]
-    )
-
-    dispatcher.add_handler(choosing_staff)
+    dispatcher.add_handler(MessageHandler(Filters.regex("Позвать сотрудника магазина"), select_staff))
+    dispatcher.add_handler(CallbackQueryHandler(call_admin, pattern=re.compile('^call_admin$')))
+    dispatcher.add_handler(CallbackQueryHandler(call_cashier, pattern=re.compile('^call_cashier$')))
