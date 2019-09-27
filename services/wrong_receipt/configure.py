@@ -12,7 +12,7 @@ def setup(updater):
         states={
             ADD_COMMENT_RECEIPT: [MessageHandler(Filters.photo, send_photo, pass_chat_data=True)],
         },
-        fallbacks=[MessageHandler(Filters.regex("Отменить"), cancel)]
+        fallbacks=[MessageHandler(Filters.all, cancel)]
     )
 
     dispatcher.add_handler(adding_comment)
