@@ -5,8 +5,8 @@ import os
 def select_staff(update, context):
     bot = context.bot
     keyboard = [
-        [InlineKeyboardButton("❗️Позвать администратора", callback_data='call_cashier')],
-        [InlineKeyboardButton("❕Позвать кассира", callback_data='call_admin')]
+        [InlineKeyboardButton("❗️Позвать администратора", callback_data='call_admin')],
+        [InlineKeyboardButton("❕Позвать кассира", callback_data='call_cashier')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
