@@ -9,8 +9,8 @@ ADD_TEXT, ADD_PHOTO, ADD_PHOTO_TEXT, SELECT_TYPE = range(4)
 def choose_product(update, context):
     bot = context.bot
     keyboard = [
-        [InlineKeyboardButton("Отправить название", callback_data='send_name_info')],
-        [InlineKeyboardButton("Отправить фото и название", callback_data='send_photo_and_name_info')]
+        [InlineKeyboardButton("Отправить название", callback_data='send_name_order')],
+        [InlineKeyboardButton("Отправить фото и название", callback_data='send_photo_and_name_order')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -80,12 +80,12 @@ def send_product_text(update, context):
     data_about_user = "order" + " " + str(update.message.chat_id) + "  " + str(update.message.message_id)
 
     keyboard = [
-        [InlineKeyboardButton(u"Принять заказ", callback_data=data_about_user + " 1"),
-         InlineKeyboardButton(u"Отклонить",
+        [InlineKeyboardButton("✅Принять", callback_data=data_about_user + " 1"),
+         InlineKeyboardButton("❌Отклонить",
                               callback_data=data_about_user + " 0")],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    message = f"""Заказ продуктов\nот {first_name} {last_name} {username}\n""" + update.message.text
+    message = f"""Заказ продуктов🚚\nот {first_name} {last_name} {username}\nНазвание продукта:\n""" + update.message.text
 
     bot.send_message(os.environ["WORKERS_CHANNEL"], message, reply_markup=reply_markup)
 
@@ -124,12 +124,12 @@ def send_product_text_photo(update, context):
     data_about_user = "order" + " " + str(update.message.chat_id) + "  " + str(update.message.message_id)
 
     keyboard = [
-        [InlineKeyboardButton(u"Принять заказ", callback_data=data_about_user + " 1"),
-         InlineKeyboardButton(u"Отклонить",
+        [InlineKeyboardButton("✅Принять", callback_data=data_about_user + " 1"),
+         InlineKeyboardButton("❌Отклонить",
                               callback_data=data_about_user + " 0")],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    message = f"""Заказ продуктов\nот {first_name} {last_name} {username}\n""" + update.message.text
+    message = f"""Заказ продуктов🚚\nот {first_name} {last_name} {username}\nНазвание продукта:\n""" + update.message.text
 
     bot.send_message(os.environ["WORKERS_CHANNEL"], message, reply_to_message_id=picture.message_id,
                      reply_markup=reply_markup)
