@@ -1,5 +1,4 @@
 from telegram import ReplyKeyboardMarkup, KeyboardButton
-from services.logger import logger
 from telegram.ext import ConversationHandler
 from services.initial.configure import menu
 import os
@@ -9,7 +8,6 @@ ADD_COMMENT = 0
 
 def write_comment(update, context):
     bot = context.bot
-    # logger.info(update.message.from_user.username)
 
     keyboard = [
         [KeyboardButton("Отменить")],

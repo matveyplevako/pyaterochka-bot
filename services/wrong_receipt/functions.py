@@ -1,5 +1,4 @@
 from telegram import ReplyKeyboardMarkup, KeyboardButton
-from services.logger import logger
 from services.initial.configure import menu
 from telegram.ext import ConversationHandler
 import os

@@ -1,6 +1,5 @@
 from telegram import ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import ConversationHandler
-from services.logger import logger
 from services.initial.configure import menu
 import os
 
@@ -9,7 +8,6 @@ CALL_STUFF = 0
 
 def select_staff(update, context):
     bot = context.bot
-    logger.info(update.message.from_user.username)
     keyboard = [
         [KeyboardButton("Позвать администратора")],
         [KeyboardButton("Позвать кассира")],
@@ -53,4 +51,9 @@ def call_cashier(update, context):
 
 def cancel(update, context):
     menu(update, context)
+    return ConversationHandler.END
+
+
+def custom_cancel(update, context):
+    print(update, context)
     return ConversationHandler.END

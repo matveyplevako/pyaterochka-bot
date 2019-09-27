@@ -8,6 +8,10 @@ from services.wrong_receipt.configure import setup as setup_wrong_receipt
 from services.item_checker.configure import setup as setup_item_checker
 import os
 
+import logging
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
 
 def main():
     TOKEN = os.environ['BOT_TOKEN']
@@ -19,7 +23,8 @@ def main():
     setup_wrong_receipt(updater)
     setup_item_checker(updater)
     setup_initial(updater)
-    updater.start_polling(poll_interval=1)
+
+    updater.start_polling(poll_interval=5)
 
 
 if __name__ == '__main__':
