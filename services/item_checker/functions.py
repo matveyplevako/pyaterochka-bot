@@ -9,54 +9,44 @@ ADD_TEXT, ADD_PHOTO, ADD_PHOTO_TEXT, SELECT_TYPE = range(4)
 def choose_product(update, context):
     bot = context.bot
     keyboard = [
-        [InlineKeyboardButton("📝Отправить название", callback_data='send_name_info')],
-        [InlineKeyboardButton("📸📝Отправить фото и название", callback_data='send_photo_and_name_info')]
+        [KeyboardButton("📝Отправить название", callback_data='send_name_info')],
+        [KeyboardButton("📸📝Отправить фото и название", callback_data='send_photo_and_name_info')],
+        [KeyboardButton("🚫Отменить")]
     ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=False,
+                                       resize_keyboard=True)
 
     bot.send_message(update.message.chat_id, "Выберите опцию", reply_markup=reply_markup)
     return SELECT_TYPE
 
 
 def input_text(update, context):
-    query = update.callback_query
-
     bot = context.bot
 
     keyboard = [
-        [KeyboardButton("Отменить")],
+        [KeyboardButton("🚫Отменить")],
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=False,
                                        resize_keyboard=True)
 
-    bot.delete_message(
-        chat_id=query.message.chat_id,
-        message_id=query.message.message_id,
-    )
-
-    bot.send_message(query.message.chat_id, "Напишите название продукта", reply_markup=reply_markup)
+    bot.send_message(update.message.chat_id, "Напишите название продукта", reply_markup=reply_markup)
 
     return ADD_TEXT
 
 
 def input_photo(update, context):
     bot = context.bot
-    query = update.callback_query
 
     keyboard = [
-        [KeyboardButton("Отменить")],
+        [KeyboardButton("🚫Отменить")],
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=False,
                                        resize_keyboard=True)
 
-    bot.delete_message(
-        chat_id=query.message.chat_id,
-        message_id=query.message.message_id,
-    )
-
-    bot.send_message(query.message.chat_id, "Отправте фотографию продукта", reply_markup=reply_markup)
+    bot.send_message(update.message.chat_id, "Отправте фотографию продукта", reply_markup=reply_markup)
 
     return ADD_PHOTO
 
@@ -158,3 +148,10 @@ def process_selection(update, context):
                      ["Данного товара сейчас нет в наличии", "Данный товар есть в наличии\nЖдём вас в пятёрочке!"]
                      [selected],
                      reply_to_message_id=message_id)
+
+
+def cancel(update, context):
+    menu(update, context)
+    context.chat_data = {}
+
+    return ConversationHandler.END
