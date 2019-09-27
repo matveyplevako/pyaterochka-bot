@@ -11,8 +11,8 @@ def setup(updater):
     dispatcher.add_handler(MessageHandler(Filters.regex("Заказать отсутсвующую продукцию"), choose_product))
 
     choose_product_conversation = ConversationHandler(
-        entry_points=[CallbackQueryHandler(input_text, pattern=re.compile('^send_name_info$')),
-                      CallbackQueryHandler(input_photo, pattern=re.compile('^send_photo_and_name_info$'))],
+        entry_points=[CallbackQueryHandler(input_text, pattern=re.compile('^send_name_order$')),
+                      CallbackQueryHandler(input_photo, pattern=re.compile('^send_photo_and_name_order$'))],
         states={
             ADD_TEXT: [MessageHandler(Filters.regex("^((?!Отменить).)*$"), send_product_text)],
             ADD_PHOTO: [MessageHandler(Filters.photo, send_product_photo)],

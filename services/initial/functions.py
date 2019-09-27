@@ -5,12 +5,12 @@ from telegram import ReplyKeyboardMarkup, KeyboardButton
 def menu(update, context):
     bot = context.bot
     keyboard = [
-        [KeyboardButton("Показать карту магазина")],
-        [KeyboardButton("Позвать сотрудника магазина")],
-        [KeyboardButton("Узнать о наличии товара у сотрудников")],
-        [KeyboardButton("Заказать отсутсвующую продукцию")],
-        [KeyboardButton("Сообщить о неправильном ценнике")],
-        [KeyboardButton("Оставить отзыв о боте")]
+        [KeyboardButton("🗺Показать карту магазина")],
+        [KeyboardButton("🏃‍Позвать сотрудника магазина")],
+        [KeyboardButton("🔎Узнать о наличии товара у сотрудников")],
+        [KeyboardButton("🚚Заказать отсутсвующую продукцию")],
+        [KeyboardButton("📵Сообщить о неправильном ценнике")],
+        [KeyboardButton("⭐️Оставить отзыв о боте")]
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=False, resize_keyboard=True)

@@ -80,13 +80,14 @@ def send_product_text(update, context):
     data_about_user = "info" + " " + str(update.message.chat_id) + " " + str(update.message.message_id)
 
     keyboard = [
-        [InlineKeyboardButton(u"Есть в наличии", callback_data=data_about_user + " 1"),
-         InlineKeyboardButton(u"Отсутсвует",
+        [InlineKeyboardButton(u"✅Есть", callback_data=data_about_user + " 1"),
+         InlineKeyboardButton(u"❌Отсутсвует",
                               callback_data=data_about_user + " 0")],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
-    message = f"""Запрос иформации о наличии продукта\nот {first_name} {last_name} {username}\n""" + update.message.text
+    message = f"""Запрос информации о наличии продукта🔎\nот {first_name} {last_name} {username}\nНазвание продукта:\n""" \
+              + update.message.text
 
     bot.send_message(os.environ["WORKERS_CHANNEL"], message,
                      reply_markup=reply_markup)
@@ -128,12 +129,13 @@ def send_product_text_photo(update, context):
     data_about_user = "info" + " " + str(update.message.chat_id) + "  " + str(update.message.message_id)
 
     keyboard = [
-        [InlineKeyboardButton(u"Есть в наличии", callback_data=data_about_user + " 1"),
-         InlineKeyboardButton(u"Отсутсвует",
+        [InlineKeyboardButton(u"✅Есть", callback_data=data_about_user + " 1"),
+         InlineKeyboardButton(u"❌Отсутсвует",
                               callback_data=data_about_user + " 0")],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    message = f"""Запрос иформации о наличии продукта\nот {first_name} {last_name} {username}\n""" + update.message.text
+    message = f"""Запрос информации о наличии продукта🔎\nот {first_name} {last_name} {username}\nНазвание продукта:\n""" \
+              + update.message.text
 
     bot.send_message(os.environ["WORKERS_CHANNEL"], message, reply_to_message_id=picture.message_id,
                      reply_markup=reply_markup)
