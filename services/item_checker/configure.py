@@ -16,7 +16,7 @@ def setup(updater):
             ADD_PHOTO: [MessageHandler(Filters.photo, send_product_photo)],
             ADD_PHOTO_TEXT: [MessageHandler(Filters.regex("^((?!Отменить).)*$"), send_product_text_photo)],
         },
-        fallbacks=[MessageHandler(Filters.text, cancel)]
+        fallbacks=[MessageHandler(Filters.all, cancel)]
     )
 
     dispatcher.add_handler(choose_product_to_get_info_conversation)
