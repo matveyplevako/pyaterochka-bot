@@ -9,8 +9,8 @@ ADD_TEXT, ADD_PHOTO, ADD_PHOTO_TEXT, SELECT_TYPE = range(4)
 def choose_product(update, context):
     bot = context.bot
     keyboard = [
-        [InlineKeyboardButton("Отправить название", callback_data='send_name_order')],
-        [InlineKeyboardButton("Отправить фото и название", callback_data='send_photo_and_name_order')]
+        [InlineKeyboardButton("📝Отправить название", callback_data='send_name_order')],
+        [InlineKeyboardButton("📸📝Отправить фото и название", callback_data='send_photo_and_name_order')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -35,7 +35,7 @@ def input_text(update, context):
         message_id=query.message.message_id,
     )
 
-    bot.send_message(query.message.chat_id, "Напишите названию продукта", reply_markup=reply_markup)
+    bot.send_message(query.message.chat_id, "Напишите название продукта", reply_markup=reply_markup)
 
     return ADD_TEXT
 
@@ -85,7 +85,7 @@ def send_product_text(update, context):
                               callback_data=data_about_user + " 0")],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    message = f"""Заказ продуктов🚚\nот {first_name} {last_name} {username}\nНазвание продукта:\n""" + update.message.text
+    message = f"""🚚Заказ продуктов\nот {first_name} {last_name} {username}\nНазвание продукта:\n""" + update.message.text
 
     bot.send_message(os.environ["WORKERS_CHANNEL"], message, reply_markup=reply_markup)
 
@@ -129,7 +129,7 @@ def send_product_text_photo(update, context):
                               callback_data=data_about_user + " 0")],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    message = f"""Заказ продуктов🚚\nот {first_name} {last_name} {username}\nНазвание продукта:\n""" + update.message.text
+    message = f"""🚚Заказ продуктов\nот {first_name} {last_name} {username}\nНазвание продукта:\n""" + update.message.text
 
     bot.send_message(os.environ["WORKERS_CHANNEL"], message, reply_to_message_id=picture.message_id,
                      reply_markup=reply_markup)

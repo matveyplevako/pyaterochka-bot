@@ -9,8 +9,8 @@ ADD_TEXT, ADD_PHOTO, ADD_PHOTO_TEXT, SELECT_TYPE = range(4)
 def choose_product(update, context):
     bot = context.bot
     keyboard = [
-        [InlineKeyboardButton("Отправить название", callback_data='send_name_info')],
-        [InlineKeyboardButton("Отправить фото и название", callback_data='send_photo_and_name_info')]
+        [InlineKeyboardButton("📝Отправить название", callback_data='send_name_info')],
+        [InlineKeyboardButton("📸📝Отправить фото и название", callback_data='send_photo_and_name_info')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -35,7 +35,7 @@ def input_text(update, context):
         message_id=query.message.message_id,
     )
 
-    bot.send_message(query.message.chat_id, "Напишите названию продукта", reply_markup=reply_markup)
+    bot.send_message(query.message.chat_id, "Напишите название продукта", reply_markup=reply_markup)
 
     return ADD_TEXT
 
@@ -86,7 +86,7 @@ def send_product_text(update, context):
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
-    message = f"""Запрос информации о наличии продукта🔎\nот {first_name} {last_name} {username}\nНазвание продукта:\n""" \
+    message = f"""🔎Запрос информации о наличии продукта\nот {first_name} {last_name} {username}\nНазвание продукта:\n""" \
               + update.message.text
 
     bot.send_message(os.environ["WORKERS_CHANNEL"], message,
@@ -97,10 +97,7 @@ def send_product_text(update, context):
 
 def send_product_photo(update, context):
     bot = context.bot
-    # logger.info(update.message.from_user.username)
     chat_data = context.chat_data
-
-    user = update.message.from_user
 
     photo_file_id = update.message.photo[len(update.message.photo) - 1].file_id
 
@@ -111,8 +108,6 @@ def send_product_photo(update, context):
 
 
 def send_product_text_photo(update, context):
-    # logger.info(update.message.from_user.username)
-
     bot = context.bot
     chat_data = context.chat_data
 
@@ -134,7 +129,7 @@ def send_product_text_photo(update, context):
                               callback_data=data_about_user + " 0")],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    message = f"""Запрос информации о наличии продукта🔎\nот {first_name} {last_name} {username}\nНазвание продукта:\n""" \
+    message = f"""🔎Запрос информации о наличии продукта\nот {first_name} {last_name} {username}\nНазвание продукта:\n""" \
               + update.message.text
 
     bot.send_message(os.environ["WORKERS_CHANNEL"], message, reply_to_message_id=picture.message_id,
