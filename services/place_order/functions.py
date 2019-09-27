@@ -66,7 +66,6 @@ def input_product_text(update, context):
 
 
 def send_product_text(update, context):
-
     bot = context.bot
 
     user = update.message.from_user
@@ -74,7 +73,7 @@ def send_product_text(update, context):
     last_name = user.last_name if user.last_name is not None else ""
     username = "@" + user.username if user.username is not None else ""
 
-    bot.send_message(update.message.chat_id, "Ожидайте ответа от сотрудников")
+    bot.send_message(update.message.chat_id, "Ваш запрос отправлен сотрудникам магазина")
     menu(update, context)
 
     data_about_user = "order" + " " + str(update.message.chat_id) + "  " + str(update.message.message_id)
@@ -94,7 +93,6 @@ def send_product_text(update, context):
 
 def send_product_photo(update, context):
     bot = context.bot
-    # logger.info(update.message.from_user.username)
     chat_data = context.chat_data
 
     photo_file_id = update.message.photo[len(update.message.photo) - 1].file_id
@@ -106,8 +104,6 @@ def send_product_photo(update, context):
 
 
 def send_product_text_photo(update, context):
-    # logger.info(update.message.from_user.username)
-
     bot = context.bot
     chat_data = context.chat_data
 
@@ -116,7 +112,7 @@ def send_product_text_photo(update, context):
     last_name = user.last_name if user.last_name is not None else ""
     username = "@" + user.username if user.username is not None else ""
 
-    bot.send_message(update.message.chat_id, "Мы приняли ваш заказ")
+    bot.send_message(update.message.chat_id, "Ваш запрос отправлен сотрудникам магазина")
     menu(update, context)
 
     picture = bot.send_photo(photo=chat_data["file_id"], chat_id=os.environ["WORKERS_CHANNEL"])

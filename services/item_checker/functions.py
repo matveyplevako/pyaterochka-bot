@@ -62,7 +62,6 @@ def input_photo(update, context):
 
 
 def input_product_text(update, context):
-    bot = context.bot
     return ADD_TEXT
 
 
@@ -116,7 +115,7 @@ def send_product_text_photo(update, context):
     last_name = user.last_name if user.last_name is not None else ""
     username = "@" + user.username if user.username is not None else ""
 
-    bot.send_message(update.message.chat_id, "Мы приняли ваш заказ")
+    bot.send_message(update.message.chat_id, "Ваш запрос отправлен сотрудникам магазина")
     menu(update, context)
 
     picture = bot.send_photo(chat_id=os.environ["WORKERS_CHANNEL"], photo=chat_data["file_id"])
@@ -156,6 +155,6 @@ def process_selection(update, context):
     )
 
     bot.send_message(chat_id,
-                     ["Данного товара сейчас не в наличии", "Данный товар есть в наличии\nЖдём вас в пятёрочке!"]
+                     ["Данного товара сейчас нет в наличии", "Данный товар есть в наличии\nЖдём вас в пятёрочке!"]
                      [selected],
                      reply_to_message_id=message_id)
