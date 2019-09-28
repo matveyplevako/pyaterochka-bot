@@ -9,40 +9,35 @@ ADD_TEXT, ADD_PHOTO, ADD_PHOTO_TEXT, SELECT_TYPE = range(4)
 def choose_product(update, context):
     bot = context.bot
     keyboard = [
-        [InlineKeyboardButton("📝Отправить название", callback_data='send_name_order')],
-        [InlineKeyboardButton("📸📝Отправить фото и название", callback_data='send_photo_and_name_order')]
+        [KeyboardButton("📝Отправить название", callback_data='send_name_info')],
+        [KeyboardButton("📸📝Отправить фото и название", callback_data='send_photo_and_name_info')],
+        [KeyboardButton("🚫Отменить")]
     ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=False,
+                                       resize_keyboard=True)
 
     bot.send_message(update.message.chat_id, "Выберите опцию", reply_markup=reply_markup)
     return SELECT_TYPE
 
 
 def input_text(update, context):
-    query = update.callback_query
-
     bot = context.bot
 
     keyboard = [
-        [KeyboardButton("Отменить")],
+        [KeyboardButton("🚫Отменить")],
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=False,
                                        resize_keyboard=True)
 
-    bot.delete_message(
-        chat_id=query.message.chat_id,
-        message_id=query.message.message_id,
-    )
-
-    bot.send_message(query.message.chat_id, "Напишите название продукта", reply_markup=reply_markup)
+    bot.send_message(update.message.chat_id, "Напишите название продукта", reply_markup=reply_markup)
 
     return ADD_TEXT
 
 
 def input_photo(update, context):
     bot = context.bot
-    query = update.callback_query
 
     keyboard = [
         [KeyboardButton("Отменить")],
@@ -51,12 +46,7 @@ def input_photo(update, context):
                                        one_time_keyboard=False,
                                        resize_keyboard=True)
 
-    bot.delete_message(
-        chat_id=query.message.chat_id,
-        message_id=query.message.message_id,
-    )
-
-    bot.send_message(query.message.chat_id, "Отправте фотографию продукта", reply_markup=reply_markup)
+    bot.send_message(update.message.chat_id, "Отправте фотографию продукта", reply_markup=reply_markup)
 
     return ADD_PHOTO
 
