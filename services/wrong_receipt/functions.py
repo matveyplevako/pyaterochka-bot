@@ -11,7 +11,7 @@ def write_receipt(update, context):
     # logger.info(update.message.from_user.username)
 
     keyboard = [
-        [KeyboardButton("Отменить")],
+        [KeyboardButton("🚫Отменить")],
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard=False,
