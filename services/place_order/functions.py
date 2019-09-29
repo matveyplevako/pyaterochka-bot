@@ -1,6 +1,6 @@
 from telegram import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 from services.initial.configure import menu
-from telegram.ext import ConversationHandler, InlineQueryHandler
+from telegram.ext import ConversationHandler
 import os
 
 ADD_TEXT, ADD_PHOTO, ADD_PHOTO_TEXT, SELECT_TYPE = range(4)

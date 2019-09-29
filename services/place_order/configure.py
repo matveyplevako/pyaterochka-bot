@@ -8,7 +8,7 @@ def setup(updater):
     dispatcher = updater.dispatcher
 
     choose_product_conversation = ConversationHandler(
-        entry_points=[MessageHandler(Filters.regex("Заказать отсутсвующую продукцию"), choose_product)],
+        entry_points=[MessageHandler(Filters.regex("Заказать отсутствующую продукцию"), choose_product)],
         states={
             SELECT_TYPE: [MessageHandler(Filters.regex("Отправить название"), input_text),
                           MessageHandler(Filters.regex("Отправить фото и название"), input_photo)],
