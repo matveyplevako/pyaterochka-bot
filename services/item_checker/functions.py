@@ -11,8 +11,9 @@ def choose_product(update, context):
     bot = context.bot
     lang = extract_language_and_update_if_not_present(update, context)
     keyboard = [
-        [KeyboardButton(f"📝{translate('send_name', lang)}", callback_data='send_name_info')],
-        [KeyboardButton(f"📸📝{translate('send_name_and_photo', lang)}", callback_data='send_photo_and_name_info')],
+        [KeyboardButton(f"📝{translate('send_name', lang)}")],
+        [KeyboardButton(f"📸📝{translate('send_name_and_photo', lang)}")],
+        [KeyboardButton(f"📦📝{translate('send_name_and_barcode', lang)}")],
         [KeyboardButton(f"🚫{translate('cancel', lang)}")]
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard,
@@ -49,6 +50,20 @@ def input_photo(update, context):
                                        resize_keyboard=True)
 
     bot.send_message(update.message.chat_id, f"{translate('enter_product_photo', lang)}", reply_markup=reply_markup)
+
+    return ADD_PHOTO
+
+def input_barcode(update, context):
+    bot = context.bot
+    lang = extract_language_and_update_if_not_present(update, context)
+    keyboard = [
+        [KeyboardButton(f"🚫{translate('cancel', lang)}")]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard,
+                                       one_time_keyboard=False,
+                                       resize_keyboard=True)
+
+    bot.send_message(update.message.chat_id, f"{translate('enter_product_barcode', lang)}", reply_markup=reply_markup)
 
     return ADD_PHOTO
 

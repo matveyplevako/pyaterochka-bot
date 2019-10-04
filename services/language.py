@@ -1,10 +1,6 @@
 from services.DataBase import DB
 
 phrases = {
-    "hello": {
-        "ru": 'Привет! Я чат бот магазина "Пятёрочка" в г. Иннополис',
-        "eng": 'Hello! I am Pyaterochka shop chat bot of Innopolis city'
-    },
     "menu": {
         "ru": "Меню",
         "eng": "Menu"
@@ -116,6 +112,14 @@ phrases = {
     "send_wrong_tag": {
         "ru": "Пожалуйста, пришлите фотографию неправильного ценника",
         "eng": "Please, send the picture of a wrong tag"
+    },
+    "send_name_and_barcode": {
+        "ru": "Отправить штрих код и название",
+        "eng": "Send barcode and the product name"
+    },
+    "enter_product_barcode": {
+        "ru": "Отправьте фото штрих кода продукта",
+        "eng": "Send a photo of a barcode of the product"
     }
 }
 
@@ -125,7 +129,6 @@ def translate(key: str, language: str):
 
 
 def extract_language_and_update_if_not_present(update, context):
-
     if "language" not in context.user_data:
         language_preference = DB('language_selection', chat_id="TEXT", language="TEXT")
         language = language_preference.get_items(chat_id=update.message.chat_id)

@@ -15,8 +15,9 @@ def setup(updater):
         states={
             SELECT_TYPE: [MessageHandler(
                 Filters.regex('|'.join(phrases["send_name"].values())), input_text),
-                MessageHandler(Filters.regex('|'.join(phrases["send_name_and_photo"].values())), input_photo)],
-            ADD_TEXT: [MessageHandler(Filters.regex("^((?!Отменить|Cancel).)*$"), send_product_text)],
+                MessageHandler(Filters.regex('|'.join(phrases["send_name_and_photo"].values())), input_photo),
+                MessageHandler(Filters.regex('|'.join(phrases["send_name_and_barcode"].values())), input_barcode)],
+    ADD_TEXT: [MessageHandler(Filters.regex("^((?!Отменить|Cancel).)*$"), send_product_text)],
             ADD_PHOTO: [MessageHandler(Filters.photo, send_product_photo)],
             ADD_PHOTO_TEXT: [MessageHandler(Filters.regex("^((?!Отменить|Cancel).)*$"), send_product_text_photo)],
         },
