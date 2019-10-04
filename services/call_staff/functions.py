@@ -1,22 +1,26 @@
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
+from services.language import translate, extract_language_and_update_if_not_present
 import os
 
 
 def select_staff(update, context):
     bot = context.bot
+    lang = extract_language_and_update_if_not_present(update, context)
     keyboard = [
-        [InlineKeyboardButton("❗️Позвать администратора", callback_data='call_admin')],
-        [InlineKeyboardButton("❕Позвать кассира", callback_data='call_cashier')]
+        [InlineKeyboardButton(f'❗{translate("call_admin", language=lang)}',
+                              callback_data='call_admin')],
+        [InlineKeyboardButton(f'❕{translate("call_cashier", language=lang)}',
+                              callback_data='call_cashier')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
-    bot.send_message(update.message.chat_id, "Кого вы хотите позвать?", reply_markup=reply_markup)
+    bot.send_message(update.message.chat_id, translate("who_to_call", lang), reply_markup=reply_markup)
 
 
 def call_admin(update, context):
     bot = context.bot
     query = update.callback_query
-
+    lang = extract_language_and_update_if_not_present(query, context)
     user = query.from_user
 
     first_name = user.first_name if user.first_name is not None else ""
@@ -27,14 +31,14 @@ def call_admin(update, context):
     bot.edit_message_text(
         chat_id=query.message.chat_id,
         message_id=query.message.message_id,
-        text='Запрос отправлен'
+        text=translate("staff_request_sent", lang)
     )
 
 
 def call_cashier(update, context):
     bot = context.bot
     query = update.callback_query
-
+    lang = extract_language_and_update_if_not_present(query, context)
     user = query.from_user
 
     first_name = user.first_name if user.first_name is not None else ""
@@ -45,5 +49,5 @@ def call_cashier(update, context):
     bot.edit_message_text(
         chat_id=query.message.chat_id,
         message_id=query.message.message_id,
-        text='Запрос отправлен'
+        text=translate("staff_request_sent", lang)
     )
