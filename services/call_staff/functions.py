@@ -1,6 +1,7 @@
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 import os
-
+import datetime
+from services.Statistics.Stats import *
 
 def select_staff(update, context):
     bot = context.bot
@@ -11,6 +12,12 @@ def select_staff(update, context):
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     bot.send_message(update.message.chat_id, "Кого вы хотите позвать?", reply_markup=reply_markup)
+
+
+    now = datetime.datetime.now()
+    current_date = str('-'.join([str(now.day), str(now.month), str(now.year)]))
+
+    statistics.edit_stat(current_date, "call_staff")
 
 
 def call_admin(update, context):

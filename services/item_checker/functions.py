@@ -2,6 +2,8 @@ from telegram import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, 
 from services.initial.configure import menu
 from telegram.ext import ConversationHandler
 import os
+import datetime
+from services.Statistics.Stats import *
 
 ADD_TEXT, ADD_PHOTO, ADD_PHOTO_TEXT, SELECT_TYPE = range(4)
 
@@ -18,6 +20,12 @@ def choose_product(update, context):
                                        resize_keyboard=True)
 
     bot.send_message(update.message.chat_id, "Выберите опцию", reply_markup=reply_markup)
+
+    now = datetime.datetime.now()
+    current_date = str('-'.join([str(now.day), str(now.month), str(now.year)]))
+
+    statistics.edit_stat(current_date, "item_checker")
+
     return SELECT_TYPE
 
 

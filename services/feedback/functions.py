@@ -2,12 +2,19 @@ from telegram import ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import ConversationHandler
 from services.initial.configure import menu
 import os
+import datetime
+from services.Database import DataBase
+from services.Statistics.Stats import *
 
 ADD_COMMENT = 0
 
 
 def write_comment(update, context):
     bot = context.bot
+
+    now = datetime.datetime.now()
+    current_date = str('-'.join([str(now.day),  str(now.month), str(now.year)]))
+
 
     keyboard = [
         [KeyboardButton("Отменить")],
@@ -17,6 +24,8 @@ def write_comment(update, context):
                                        resize_keyboard=True)
 
     bot.send_message(update.message.chat_id, "Напишите отзыв о боте", reply_markup=reply_markup)
+
+    statistics.edit_stat(current_date, "feedback")
 
     return ADD_COMMENT
 
