@@ -51,15 +51,16 @@ def select_language(update, context):
     else:
         lang = "ru"
 
+    context.user_data["language"] = lang
+    menu(update, context)
+    bot.send_message(update.message.chat_id, translate("greeting", lang))
+
     language_preference = DB('language_selection', chat_id="TEXT", language="TEXT")
     res = language_preference.get_items(chat_id=update.message.chat_id)
-    print(res)
     if len(res) != 0 and res[0][1] != lang:
         language_preference.delete_item(chat_id=update.message.chat_id)
         res = []
     if len(res) == 0:
         language_preference.add_item(chat_id=update.message.chat_id, language=lang)
-    bot.send_message(update.message.chat_id, translate("greeting", lang))
-    context.user_data["language"] = lang
-    menu(update, context)
+
     return ConversationHandler.END
