@@ -79,7 +79,7 @@ phrases = {
     },
     "enter_product_name": {
         "ru": "Напишите название продукта",
-        "eng": "What is the product name?"
+        "eng": "What is the product name?\nWe will translate it into Russian, so store staff can help you faster"
     },
     "enter_product_photo": {
         "ru": "Отправте фотографию продукта",
@@ -98,8 +98,8 @@ phrases = {
         "eng": "This product is in the shop\nWaiting for you in Pyaterochka!"
     },
     "can_not_order": {
-        "ru": "Мы приняли ваш заказ",
-        "eng": "Your order was confirmed"
+        "ru": "Мы отправлил ваш заказ в отдел закупок",
+        "eng": "Your order was sent to purchase department"
     },
     "can_order": {
         "ru": "Ваш заказ подтвердили, ожидайте поступления в ближайшее время",

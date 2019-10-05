@@ -2,6 +2,7 @@ from telegram import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, 
 from services.initial.configure import menu
 from telegram.ext import ConversationHandler
 from services.language import extract_language_and_update_if_not_present, translate
+from services.translate import translate as translate_from_eng
 import os
 
 ADD_TEXT, ADD_PHOTO, ADD_PHOTO_TEXT, SELECT_TYPE = range(4)
@@ -53,6 +54,7 @@ def input_photo(update, context):
 
     return ADD_PHOTO
 
+
 def input_barcode(update, context):
     bot = context.bot
     lang = extract_language_and_update_if_not_present(update, context)
@@ -92,8 +94,12 @@ def send_product_text(update, context):
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
-    message = f"""🔎Запрос информации о наличии продукта\nот {first_name} {last_name} {username}\nНазвание продукта:\n""" \
-              + update.message.text
+    if lang == "ru":
+        message = f"""🔎Запрос информации о наличии продукта\nот {first_name} {last_name} {username}\nНазвание продукта:\n""" \
+                  + update.message.text
+    else:
+        message = f"""🔎🇬🇧 Запрос информации о наличии продукта\nот {first_name} {last_name} {username}\nНазвание продукта на английском:\n""" \
+                  + update.message.text + "\n\nПеревод:\n" + translate_from_eng(update.message.text)
 
     bot.send_message(os.environ["WORKERS_CHANNEL"], message,
                      reply_markup=reply_markup)
@@ -135,8 +141,12 @@ def send_product_text_photo(update, context):
                               callback_data=data_about_user + " 0 " + lang)],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    message = f"""🔎Запрос информации о наличии продукта\nот {first_name} {last_name} {username}\nНазвание продукта:\n""" \
-              + update.message.text
+    if lang == "ru":
+        message = f"""🔎Запрос информации о наличии продукта\nот {first_name} {last_name} {username}\nНазвание продукта:\n""" \
+                  + update.message.text
+    else:
+        message = f"""🔎🇬🇧 Запрос информации о наличии продукта\nот {first_name} {last_name} {username}\nНазвание продукта на английском:\n""" \
+                  + update.message.text + "\n\nПеревод:\n" + translate_from_eng(update.message.text)
 
     bot.send_message(os.environ["WORKERS_CHANNEL"], message, reply_to_message_id=picture.message_id,
                      reply_markup=reply_markup)
