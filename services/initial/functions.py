@@ -52,8 +52,8 @@ def select_language(update, context):
         lang = "ru"
 
     context.user_data["language"] = lang
-    menu(update, context)
     bot.send_message(update.message.chat_id, translate("greeting", lang))
+    menu(update, context)
 
     language_preference = DB('language_selection', chat_id="TEXT", language="TEXT")
     res = language_preference.get_items(chat_id=update.message.chat_id)
