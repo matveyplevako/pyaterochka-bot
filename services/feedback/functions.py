@@ -2,17 +2,13 @@ from telegram import ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import ConversationHandler
 from services.initial.configure import menu
 from services.language import extract_language_and_update_if_not_present, translate
-import os
-import datetime
-from services.Database import DataBase
-from services.Statistics.Stats import *
+from services.Stats import *
 
 ADD_COMMENT = 0
 
 
 def write_comment(update, context):
     bot = context.bot
-
 
     lang = extract_language_and_update_if_not_present(update, context)
 
@@ -25,9 +21,7 @@ def write_comment(update, context):
 
     bot.send_message(update.message.chat_id, translate("write_feedback", lang), reply_markup=reply_markup)
 
-    now = datetime.datetime.now()
-    current_date = str('-'.join([str(now.day),  str(now.month), str(now.year)]))
-    statistics.edit_stat(current_date, "feedback")
+    edit_stat("feedback")
 
     return ADD_COMMENT
 

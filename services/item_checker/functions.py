@@ -3,9 +3,7 @@ from services.initial.configure import menu
 from telegram.ext import ConversationHandler
 from services.language import extract_language_and_update_if_not_present, translate
 from services.translate import translate as translate_from_eng
-import os
-import datetime
-from services.Statistics.Stats import *
+from services.Stats import *
 
 ADD_TEXT, ADD_PHOTO, ADD_PHOTO_TEXT, SELECT_TYPE = range(4)
 
@@ -25,10 +23,7 @@ def choose_product(update, context):
 
     bot.send_message(update.message.chat_id, f"{translate('select_option', lang)}", reply_markup=reply_markup)
 
-    now = datetime.datetime.now()
-    current_date = str('-'.join([str(now.day), str(now.month), str(now.year)]))
-
-    statistics.edit_stat(current_date, "item_checker")
+    edit_stat("item_checker")
     return SELECT_TYPE
 
 

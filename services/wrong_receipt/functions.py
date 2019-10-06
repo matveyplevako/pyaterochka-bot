@@ -2,9 +2,7 @@ from telegram import ReplyKeyboardMarkup, KeyboardButton
 from services.initial.configure import menu
 from telegram.ext import ConversationHandler
 from services.language import extract_language_and_update_if_not_present, translate
-import os
-import datetime
-from services.Statistics.Stats import *
+from services.Stats import *
 
 ADD_COMMENT_RECEIPT = 0
 
@@ -23,10 +21,7 @@ def wrong_receipt(update, context):
     bot.send_message(update.message.chat_id, f"{translate('send_wrong_tag', lang)}",
                      reply_markup=reply_markup)
 
-    now = datetime.datetime.now()
-    current_date = str('-'.join([str(now.day), str(now.month), str(now.year)]))
-
-    statistics.edit_stat(current_date, "wrong_receipt")
+    edit_stat("wrong_receipt")
 
     return ADD_COMMENT_RECEIPT
 
