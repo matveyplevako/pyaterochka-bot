@@ -17,6 +17,7 @@ def select_staff(update, context):
     bot.send_message(update.message.chat_id, translate("who_to_call", lang), reply_markup=reply_markup)
 
     edit_stat("call_staff")
+    edit_user_stat(update.message.chat_id, "call_staff")
 
 
 def call_admin(update, context):

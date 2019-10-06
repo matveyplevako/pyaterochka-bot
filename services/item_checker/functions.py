@@ -24,6 +24,8 @@ def choose_product(update, context):
     bot.send_message(update.message.chat_id, f"{translate('select_option', lang)}", reply_markup=reply_markup)
 
     edit_stat("item_checker")
+    edit_user_stat(update.message.chat_id, "item_checker")
+
     return SELECT_TYPE
 
 

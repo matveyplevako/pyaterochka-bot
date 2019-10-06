@@ -23,6 +23,8 @@ def write_comment(update, context):
 
     edit_stat("feedback")
 
+    edit_user_stat(update.message.chat_id, "feedback")
+
     return ADD_COMMENT
 
 
