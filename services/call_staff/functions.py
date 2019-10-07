@@ -18,7 +18,7 @@ def select_staff(update, context):
 
     edit_stat("call_staff")
     edit_user_stat(update.message.chat_id, "call_staff")
-
+    edit_daily_active_users_stat(update.message.chat_id)
 
 def call_admin(update, context):
     bot = context.bot

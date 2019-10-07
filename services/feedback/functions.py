@@ -25,6 +25,8 @@ def write_comment(update, context):
 
     edit_user_stat(update.message.chat_id, "feedback")
 
+    edit_daily_active_users_stat(update.message.chat_id)
+
     return ADD_COMMENT
 
 

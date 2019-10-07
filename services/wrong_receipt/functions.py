@@ -23,6 +23,7 @@ def wrong_receipt(update, context):
 
     edit_stat("wrong_receipt")
     edit_user_stat(update.message.chat_id, "wrong_receipt")
+    edit_daily_active_users_stat(update.message.chat_id)
 
     return ADD_COMMENT_RECEIPT
 

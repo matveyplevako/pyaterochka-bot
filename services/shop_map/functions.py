@@ -10,5 +10,6 @@ def show_map(update, context):
 
     edit_stat("shop_map")
     edit_user_stat(update.message.chat_id, "shop_map")
+    edit_daily_active_users_stat(update.message.chat_id)
 
     return ConversationHandler.END

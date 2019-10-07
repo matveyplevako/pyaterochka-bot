@@ -25,6 +25,7 @@ def choose_product(update, context):
 
     edit_stat("item_checker")
     edit_user_stat(update.message.chat_id, "item_checker")
+    edit_daily_active_users_stat(update.message.chat_id)
 
     return SELECT_TYPE
 
