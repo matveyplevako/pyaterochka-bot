@@ -2,14 +2,16 @@ from telegram import ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import ConversationHandler
 from services.initial.configure import menu
 from services.language import extract_language_and_update_if_not_present, translate
-import os
+from services.Stats import *
 
 ADD_COMMENT = 0
 
 
 def write_comment(update, context):
     bot = context.bot
+
     lang = extract_language_and_update_if_not_present(update, context)
+
     keyboard = [
         [KeyboardButton(f'🚫{translate("cancel", lang)}')],
     ]
@@ -18,6 +20,12 @@ def write_comment(update, context):
                                        resize_keyboard=True)
 
     bot.send_message(update.message.chat_id, translate("write_feedback", lang), reply_markup=reply_markup)
+
+    edit_stat("feedback")
+
+    edit_user_stat(update.message.chat_id, "feedback")
+
+    edit_daily_active_users_stat(update.message.chat_id)
 
     return ADD_COMMENT
 

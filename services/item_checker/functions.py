@@ -3,7 +3,7 @@ from services.initial.configure import menu
 from telegram.ext import ConversationHandler
 from services.language import extract_language_and_update_if_not_present, translate
 from services.translate import translate as translate_from_eng
-import os
+from services.Stats import *
 
 ADD_TEXT, ADD_PHOTO, ADD_PHOTO_TEXT, SELECT_TYPE = range(4)
 
@@ -22,6 +22,11 @@ def choose_product(update, context):
                                        resize_keyboard=True)
 
     bot.send_message(update.message.chat_id, f"{translate('select_option', lang)}", reply_markup=reply_markup)
+
+    edit_stat("item_checker")
+    edit_user_stat(update.message.chat_id, "item_checker")
+    edit_daily_active_users_stat(update.message.chat_id)
+
     return SELECT_TYPE
 
 

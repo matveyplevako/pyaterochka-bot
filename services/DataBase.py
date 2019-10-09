@@ -62,3 +62,4 @@ class DB:
 
     def excecute(self, request):
         return [x for x in conn.execute(request)]
+
