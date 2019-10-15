@@ -13,7 +13,7 @@ daily_active_users = DB("DAU", date="DATE", number_of_users="INTEGER", users_cha
 
 def edit_stat(column):
     now = datetime.datetime.now()
-    current_date = str('/'.join([str(now.year), str(now.day), str(now.month)]))
+    current_date = str('/'.join([str(now.year), str(now.month), str(now.day)]))
 
     res = statistics.get_items(date=current_date)
 
@@ -43,7 +43,7 @@ def edit_user_stat(chat_id, column):
 
 def edit_daily_active_users_stat(chat_id):
     now = datetime.datetime.now()
-    current_date = str('/'.join([str(now.year), str(now.day), str(now.month)]))
+    current_date = str('/'.join([str(now.year), str(now.month), str(now.day)]))
 
     res = daily_active_users.get_items(date=current_date)
 
