@@ -9,12 +9,14 @@ from services.item_checker.configure import setup as setup_item_checker
 import os
 
 import logging
+
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 
 def main():
     TOKEN = os.environ['BOT_TOKEN']
+    PORT = os.environ.get('PORT', '8443')
     updater = Updater(TOKEN, use_context=True)
     setup_map(updater)
     setup_call_staff(updater)
@@ -23,7 +25,13 @@ def main():
     setup_wrong_receipt(updater)
     setup_item_checker(updater)
     setup_initial(updater)
-    updater.start_polling(poll_interval=1)
+
+    updater.start_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path=TOKEN)
+    updater.bot.setWebhook(f"https://pyaterochkabot.herokuapp.com/{TOKEN}")
+
+    updater.idle()
 
 
 if __name__ == '__main__':
